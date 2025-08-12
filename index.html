@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scott D. Miller, PhD - Feedback Informed Treatment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Bebas Neue', 'sans-serif'],
+                        'body': ['Montserrat', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        'heading': '0.025em'
+                    },
+                    lineHeight: {
+                        'heading': '1'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-heading tracking-heading leading-heading text-black">Scott D. Miller, PhD</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-black hover:opacity-70 font-body">Home</a>
+                        <a href="#about" class="text-black hover:opacity-70 font-body">About</a>
+                        <a href="#resources" class="text-black hover:opacity-70 font-body">Resources</a>
+                        <a href="#training" class="text-black hover:opacity-70 font-body">Training</a>
+                        <a href="#contact" class="text-black hover:opacity-70 font-body">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="min-h-screen bg-cover bg-no-repeat bg-center relative" style="background-image: url('assets/images/scott-miller-hero.png'); background-position: center 20%;">
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div class="relative container max-w-4xl mx-auto pt-48 pb-24 px-4 sm:px-12">
+            <h2 class="text-4xl sm:text-5xl md:text-6xl pb-2 text-white font-heading tracking-heading leading-heading">Improving Therapy Outcomes Through Systematic Feedback</h2>
+            <div class="sm:-ml-4 p-4 bg-transparent text-white">
+                <p class="text-lg sm:text-xl font-body leading-relaxed">"The key to effective therapy lies in continuously monitoring what's working and what's not, from the client's perspective. Feedback Informed Treatment transforms therapeutic practice."</p>
+            </div>
+            <div class="mt-8 space-x-4">
+                <a class="inline-block mt-8 px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-orange-100 bg-orange-500 hover:bg-orange-700 transition-colors" href="#about">
+                    Learn About FIT
+                    <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
+                </a>
+                <a class="inline-block mt-8 px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-white border border-white hover:bg-white hover:text-black transition-colors" href="#training">
+                    Training & Resources
+                    <span class="ml-4 pl-4 border-l border-gray-300 font-body font-thin">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
