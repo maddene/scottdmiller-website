@@ -45,6 +45,7 @@ app.get('/api/eventbrite', async (req, res) => {
         const url = `https://www.eventbriteapi.com/v3/organizers/${organizerId}/events/?status=live&order_by=start_asc&expand=venue`;
         console.log('Fetching from Eventbrite API:', url);
         
+        console.log('DEBUG: Using token:', EVENTBRITE_API_TOKEN);
         const response = await fetch(url, {
             headers: {
                 'Authorization': `Bearer ${EVENTBRITE_API_TOKEN}`,
@@ -71,8 +72,82 @@ app.get('/api/eventbrite', async (req, res) => {
     }
 });
 
+// Brevo API subscription endpoint
+app.post('/api/brevo/subscribe', async (req, res) => {
+    const { email, attributes, listIds, updateEnabled } = req.body;
+    
+    console.log('Brevo subscription request received for:', email);
+    
+    if (!email) {
+        return res.status(400).json({ error: 'Email address is required' });
+    }
+
+    const BREVO_API_KEY = process.env.BREVO_API_KEY;
+    
+    if (!BREVO_API_KEY) {
+        console.error('BREVO_API_KEY not found in environment variables');
+        return res.status(500).json({ 
+            error: 'Brevo API key not configured',
+            hint: 'Make sure BREVO_API_KEY is set in .env file'
+        });
+    }
+
+    try {
+        const url = 'https://api.brevo.com/v3/contacts';
+        console.log('Creating/updating contact in Brevo:', email);
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'api-key': BREVO_API_KEY
+            },
+            body: JSON.stringify({
+                email: email,
+                attributes: attributes || {},
+                listIds: listIds || [],
+                updateEnabled: updateEnabled !== false
+            })
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            console.error(`Brevo API error: ${response.status}`, responseData);
+            
+            // Handle specific Brevo errors
+            if (response.status === 400 && responseData.code === 'duplicate_parameter') {
+                return res.status(200).json({ 
+                    success: true, 
+                    message: 'Already subscribed',
+                    id: 'existing'
+                });
+            }
+            
+            throw new Error(responseData.message || `Brevo API error: ${response.status}`);
+        }
+
+        console.log(`Successfully subscribed ${email} to Brevo list`);
+        
+        return res.json({
+            success: true,
+            message: 'Successfully subscribed',
+            id: responseData.id
+        });
+        
+    } catch (error) {
+        console.error('Error with Brevo subscription:', error);
+        return res.status(500).json({ 
+            error: 'Failed to subscribe',
+            message: error.message 
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 Eventbrite proxy server running on http://localhost:${PORT}`);
     console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🔑 API Token configured: ${process.env.EVENTBRITE_API_TOKEN ? '✅ Yes' : '❌ No'}`);
+    console.log(`🔑 Eventbrite API Token: ${process.env.EVENTBRITE_API_TOKEN ? '✅ Yes' : '❌ No'}`);
+    console.log(`📧 Brevo API Token: ${process.env.BREVO_API_KEY ? '✅ Yes' : '❌ No'}`);
 });

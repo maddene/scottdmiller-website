@@ -28,6 +28,7 @@
     </script>
     <script src="components/nav-menu.js"></script>
     <script src="components/eventbrite-events.js"></script>
+    <script src="components/brevo-subscription.js"></script>
 </head>
 <body>
     <nav-menu></nav-menu>
@@ -140,6 +141,110 @@
     </section>
 
 
-    <!-- ...existing code... -->
+    <!-- Contact Section -->
+    <section id="contact" class="px-4 py-16 bg-gray-100">
+        <div class="container max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-heading tracking-heading leading-heading text-black mb-4">
+                    Contact Scott
+                </h2>
+                <p class="text-lg font-body text-gray-600">
+                    Get in touch for training opportunities, consultations, or questions about FIT
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Information -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-heading text-black mb-6">Contact Information</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-orange-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-body font-medium text-black">Email</p>
+                                <a href="mailto:info@scottdmiller.com" class="text-orange-500 hover:text-orange-600 font-body">
+                                    info@scottdmiller.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-orange-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                            <div>
+                                <p class="font-body font-medium text-black">FIT Discussion Forum</p>
+                                <a href="https://www.facebook.com/groups/122558661308" target="_blank" class="text-orange-500 hover:text-orange-600 font-body">
+                                    Facebook Group
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-orange-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            <div>
+                                <p class="font-body font-medium text-black">ICCE Homepage</p>
+                                <a href="https://www.centerforclinicalexcellence.com" target="_blank" class="text-orange-500 hover:text-orange-600 font-body">
+                                    www.centerforclinicalexcellence.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <h3 class="text-2xl font-heading text-black mb-4">Stay Updated</h3>
+                    <p class="text-gray-600 font-body mb-6">
+                        Subscribe to receive updates on new training opportunities, research, and FIT resources.
+                    </p>
+                    
+                    <!-- Brevo Subscription Component -->
+                    <brevo-subscription 
+                        list-id="19"
+                        success-message="Thank you for subscribing! You'll receive updates on Scott's latest training and research.">
+                    </brevo-subscription>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container max-w-4xl mx-auto px-4 text-center">
+            <div class="mb-6">
+                <h3 class="text-white font-heading text-2xl mb-4">Scott D. Miller, PhD</h3>
+                <p class="text-gray-400 font-body">
+                    Founder, International Center for Clinical Excellence
+                </p>
+            </div>
+            
+            <!-- Social Media Links -->
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://www.facebook.com/groups/122558661308" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="https://www.centerforclinicalexcellence.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9m0 9c-5 0-9-4-9-9s4-9 9-9"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6">
+                <p class="text-gray-400 font-body text-sm">
+                    © 2025 Scott D. Miller, PhD. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
