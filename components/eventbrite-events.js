@@ -1,17 +1,66 @@
 class EventbriteEvents extends HTMLElement {
     constructor() {
         super();
-        // Configuration - You'll need to set these
-        this.organizerId = this.getAttribute('organizer-id') || '';
-        this.apiToken = this.getAttribute('api-token') || '';
-        this.maxEvents = parseInt(this.getAttribute('max-events')) || 6;
-        this.proxyUrl = this.getAttribute('proxy-url') || '/api/eventbrite'; // For production
+        // Configuration will be read in connectedCallback when attributes are available
+        this.organizerId = '';
+        this.apiToken = '';
+        this.maxEvents = 6;
+        this.proxyUrl = '/api/eventbrite';
     }
 
     connectedCallback() {
+        // Read attributes when component is connected to DOM
+        this.organizerId = this.getAttribute('organizer-id') || '';
+        this.apiToken = this.getAttribute('api-token') || '';
+        this.maxEvents = parseInt(this.getAttribute('max-events')) || 6;
+        
+        // Auto-detect environment and set appropriate proxy URL
+        this.proxyUrl = this.getProxyUrl();
+        
+        console.log('EventbriteEvents component connected', {
+            organizerId: this.organizerId,
+            apiToken: this.apiToken ? 'present' : 'missing',
+            proxyUrl: this.proxyUrl,
+            maxEvents: this.maxEvents,
+            environment: this.getEnvironment()
+        });
+        
         this.render();
         if (this.organizerId) {
             this.loadEvents();
+        } else {
+            console.error('No organizer ID provided');
+        }
+    }
+
+    getEnvironment() {
+        const hostname = window.location.hostname;
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'local';
+        } else if (hostname.includes('netlify.app') || hostname.includes('netlify.com')) {
+            return 'netlify';
+        } else {
+            return 'production';
+        }
+    }
+
+    getProxyUrl() {
+        // Check if proxy-url is explicitly set in HTML
+        const explicitUrl = this.getAttribute('proxy-url');
+        if (explicitUrl) {
+            return explicitUrl;
+        }
+
+        // Auto-detect based on environment
+        const environment = this.getEnvironment();
+        
+        switch (environment) {
+            case 'local':
+                return 'http://localhost:3001/api/eventbrite';
+            case 'netlify':
+            case 'production':
+            default:
+                return '/.netlify/functions/eventbrite';
         }
     }
 
@@ -39,12 +88,14 @@ class EventbriteEvents extends HTMLElement {
     }
 
     async loadEvents() {
+        console.log('Loading events...');
         const container = this.querySelector('#events-grid');
         
         try {
             // For development - using direct API (will face CORS issues)
             // For production - use a backend proxy endpoint
             const events = await this.fetchEventsDirectly();
+            console.log('Events fetched:', events);
             
             if (events && events.length > 0) {
                 container.innerHTML = events.map(event => this.createEventCard(event)).join('');
@@ -58,12 +109,14 @@ class EventbriteEvents extends HTMLElement {
     }
 
     async fetchEventsDirectly() {
-        // NOTE: This will face CORS issues when called from browser
-        // You need to either:
-        // 1. Set up a backend proxy endpoint
-        // 2. Use a serverless function (Netlify/Vercel)
-        // 3. Use a CORS proxy service (for development only)
+        // Check if proxy URL is configured
+        if (this.proxyUrl && this.proxyUrl !== '/api/eventbrite') {
+            console.log('Using proxy URL:', this.proxyUrl);
+            return this.fetchEventsFromProxy();
+        }
         
+        // Fallback to direct API (will face CORS issues)
+        console.warn('No proxy configured, attempting direct API call (may fail due to CORS)');
         const url = `https://www.eventbriteapi.com/v3/organizers/${this.organizerId}/events/?status=live&order_by=start_asc&expand=venue`;
         
         try {
@@ -78,9 +131,28 @@ class EventbriteEvents extends HTMLElement {
             const data = await response.json();
             return data.events.slice(0, this.maxEvents);
         } catch (error) {
-            // For development, we'll return mock data
-            console.warn('Using mock data due to CORS restrictions');
+            console.warn('Direct API failed, using mock data:', error.message);
             return this.getMockEvents();
+        }
+    }
+
+    async fetchEventsFromProxy() {
+        try {
+            const url = `${this.proxyUrl}?organizerId=${this.organizerId}`;
+            console.log('Fetching from proxy:', url);
+            
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+                throw new Error(`Proxy error: ${response.status} - ${errorData.error || 'Unknown error'}`);
+            }
+            
+            const data = await response.json();
+            return data.events ? data.events.slice(0, this.maxEvents) : [];
+        } catch (error) {
+            console.error('Proxy fetch failed:', error);
+            throw error;
         }
     }
 

@@ -84,11 +84,10 @@
 
             <!-- Eventbrite Events Container -->
             <div class="mb-12">
-                <!-- Replace YOUR_ORGANIZER_ID with your actual Eventbrite organizer ID -->
-                <!-- For production, you'll need to set up a backend proxy to handle the API token -->
+                <!-- Eventbrite integration for The International Centre for Clinical Excellence -->
+                <!-- Auto-detects environment: localhost uses Express server, production uses Netlify Functions -->
                 <eventbrite-events 
-                    organizer-id="YOUR_ORGANIZER_ID"
-                    api-token="YOUR_API_TOKEN"
+                    organizer-id="298540255"
                     max-events="6">
                 </eventbrite-events>
             </div>
