@@ -12,7 +12,7 @@ The component automatically detects the environment and uses the correct proxy e
 ### 1. Environment Variable
 In your Netlify dashboard:
 1. Go to **Site settings** → **Environment variables**
-2. Add: `EVENTBRITE_API_TOKEN` = `Z2COU7FBI2ZOAOKMAGQS`
+2. Add: `EVENTBRITE_API_TOKEN` = `your_private_token_here`
 
 ### 2. Files to Deploy
 Make sure these files are committed:
