@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Scott D. Miller, PhD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Bebas Neue', 'sans-serif'],
+                        'body': ['Montserrat', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        'heading': '0.025em'
+                    },
+                    lineHeight: {
+                        'heading': '1'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="components/nav-menu.js"></script>
+</head>
+<body class="bg-white">
+    <nav-menu></nav-menu>
+    <section class="min-h-screen flex items-center justify-center">
+        <h2 class="text-3xl font-heading text-gray-700">About Scott D. Miller, PhD</h2>
+    </section>
+</body>

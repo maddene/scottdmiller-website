@@ -26,27 +26,11 @@
             }
         }
     </script>
+    <script src="components/nav-menu.js"></script>
+    <script src="components/eventbrite-events.js"></script>
 </head>
 <body>
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <h1 class="text-xl font-heading tracking-heading leading-heading text-black">Scott D. Miller, PhD</h1>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-6">
-                        <a href="#about" class="text-black hover:opacity-70 font-body">About</a>
-                        <a href="#training" class="text-black hover:opacity-70 font-body">Training</a>
-                        <a href="https://scott-d-miller-ph-d.myshopify.com/" target="_blank" class="text-black hover:opacity-70 font-body">Shop</a>
-                        <a href="#systems" class="text-black hover:opacity-70 font-body">ORS & SRS</a>
-                        <a href="#publications" class="text-black hover:opacity-70 font-body">Publications</a>
-                        <a href="#contact" class="text-black hover:opacity-70 font-body">Contact</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <nav-menu></nav-menu>
 
     <section class="min-h-screen bg-cover bg-no-repeat bg-center relative" style="background-image: url('assets/images/scott-miller-hero.png'); background-position: center 20%;">
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -55,17 +39,106 @@
             <div class="sm:-ml-4 p-4 bg-transparent text-white">
                 <p class="text-lg sm:text-xl font-body leading-relaxed">"The key to effective therapy lies in continuously monitoring what's working and what's not, from the client's perspective. Feedback Informed Treatment transforms therapeutic practice."</p>
             </div>
-            <div class="mt-8 space-x-4">
+            <div class="mt-8">
                 <a class="inline-block mt-8 px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-orange-100 bg-orange-500 hover:bg-orange-700 transition-colors" href="#training">
                     Get Training
                     <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
                 </a>
-                <a class="inline-block mt-8 px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-white border border-white hover:bg-white hover:text-black transition-colors" href="#about">
-                    About Scott
-                    <span class="ml-4 pl-4 border-l border-gray-300 font-body font-thin">→</span>
-                </a>
             </div>
         </div>
     </section>
+
+    <!-- About Section -->
+    <section id="about" class="px-4 py-10 bg-gray-100">
+        <div class="container mx-auto">
+            <div class="px-8 py-6 font-body text-2xl text-center text-gray-800">
+                <p>
+                    <small>
+                        Scott D. Miller, Ph.D. is the founder of the International Center for Clinical Excellence, an international consortium of clinicians, researchers, and educators dedicated to promoting excellence in behavioral health services. Dr. Miller conducts workshops and training in the United States and abroad, helping hundreds of agencies and organizations, both public and private, to achieve superior results. He is one of a handful of “invited faculty” whose work, thinking, and research is featured at the prestigious “Evolution of Psychotherapy Conference.” His humorous and engaging presentation style and command of the research literature consistently inspires practitioners, administrators, and policy makers to make effective changes in service delivery.
+                        <br><br>
+                        Scott is the author of numerous articles and books.
+                    </small>
+                </p>
+                <div class="mt-8">
+                    <a href="about-scott.html" class="inline-block px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-white bg-orange-500 hover:bg-orange-600 transition-colors">
+                        Learn More
+                        <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Section -->
+    <section id="training" class="px-4 py-16 bg-white">
+        <div class="container max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-heading tracking-heading leading-heading text-black mb-4">
+                    Upcoming Training Events
+                </h2>
+                <p class="text-lg font-body text-gray-600 max-w-3xl mx-auto">
+                    Join Scott D. Miller for comprehensive training in Feedback Informed Treatment (FIT). 
+                    Learn evidence-based methods to improve therapy outcomes through systematic client feedback.
+                </p>
+            </div>
+
+            <!-- Eventbrite Events Container -->
+            <div class="mb-12">
+                <!-- Replace YOUR_ORGANIZER_ID with your actual Eventbrite organizer ID -->
+                <!-- For production, you'll need to set up a backend proxy to handle the API token -->
+                <eventbrite-events 
+                    organizer-id="YOUR_ORGANIZER_ID"
+                    api-token="YOUR_API_TOKEN"
+                    max-events="6">
+                </eventbrite-events>
+            </div>
+
+            <!-- Static Training Information -->
+            <div class="bg-gray-50 rounded-lg p-8">
+                <h3 class="text-2xl font-heading tracking-heading mb-4">Training Topics Include:</h3>
+                <div class="grid md:grid-cols-2 gap-6 font-body">
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">▸</span>
+                            <span>Introduction to Feedback Informed Treatment (FIT)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">▸</span>
+                            <span>Using the Outcome Rating Scale (ORS) and Session Rating Scale (SRS)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">▸</span>
+                            <span>Implementing routine outcome monitoring in practice</span>
+                        </li>
+                    </ul>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">▸</span>
+                            <span>Deliberate practice for therapists</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">▸</span>
+                            <span>Building a culture of excellence in clinical settings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">▸</span>
+                            <span>Advanced FIT implementation strategies</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="https://www.eventbrite.com/o/scott-d-miller-phd-12345678" 
+                       target="_blank" 
+                       class="inline-block px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-white bg-orange-500 hover:bg-orange-600 transition-colors">
+                        View All Events on Eventbrite
+                        <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ...existing code... -->
 </body>
 </html>
