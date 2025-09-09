@@ -29,6 +29,7 @@
     <script src="components/nav-menu.js"></script>
     <script src="components/eventbrite-events.js"></script>
     <script src="components/brevo-subscription.js"></script>
+    <script src="components/hero-subscription.js"></script>
 </head>
 <body>
     <nav-menu></nav-menu>
@@ -37,9 +38,10 @@
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         <div class="relative container max-w-7xl mx-auto pt-24 pb-24 px-4 sm:px-12">
             <div class="max-w-2xl">
-                <h2 class="text-4xl sm:text-5xl md:text-6xl pb-2 text-white font-heading tracking-heading leading-heading">Improving Therapy Outcomes Through Systematic Feedback</h2>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl pb-4 text-white font-heading tracking-heading leading-heading uppercase">Scott D. Miller, PhD</h2>
+                <p class="text-xl sm:text-2xl text-white font-body mb-6">Psychologist • Consultant • Trainer • Coach</p>
                 <div class="p-4 bg-transparent text-white">
-                    <p class="text-lg sm:text-xl font-body leading-relaxed">"The key to effective therapy lies in continuously monitoring what's working and what's not, from the client's perspective. Feedback Informed Treatment transforms therapeutic practice."</p>
+                    <p class="text-lg sm:text-xl font-body leading-relaxed italic">"Improving outcomes one person, one therapist at a time via systematic feedback and deliberate practice."</p>
                 </div>
             </div>
             <div class="mt-8">
@@ -48,6 +50,12 @@
                     <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
                 </a>
             </div>
+            
+            <!-- Hero Subscription Form -->
+            <hero-subscription 
+                list-id="19"
+                success-message="Welcome! You'll receive updates on Scott's latest training and research.">
+            </hero-subscription>
         </div>
     </section>
 
