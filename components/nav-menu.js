@@ -62,8 +62,7 @@ class NavMenu extends HTMLElement {
     getMenuItems() {
         const items = [
             { href: 'training.html', text: 'Training', external: false },
-            { href: 'https://scott-d-miller-ph-d.myshopify.com/', text: 'Shop', external: true },
-            { href: 'index.html#systems', text: 'ORS & SRS', external: false },
+            { href: 'downloadmeasures.html', text: 'Download Measures', external: false },
             { href: 'index.html#publications', text: 'Publications', external: false },
             { href: 'index.html#contact', text: 'Contact', external: false }
         ];
@@ -78,8 +77,7 @@ class NavMenu extends HTMLElement {
     getMobileMenuItems() {
         const items = [
             { href: 'training.html', text: 'Training', external: false },
-            { href: 'https://scott-d-miller-ph-d.myshopify.com/', text: 'Shop', external: true },
-            { href: 'index.html#systems', text: 'ORS & SRS', external: false },
+            { href: 'downloadmeasures.html', text: 'Download Measures', external: false },
             { href: 'index.html#publications', text: 'Publications', external: false },
             { href: 'index.html#contact', text: 'Contact', external: false }
         ];

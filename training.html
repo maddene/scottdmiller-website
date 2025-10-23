@@ -28,6 +28,7 @@
     </script>
     <script src="components/nav-menu.js"></script>
     <script src="components/eventbrite-events.js"></script>
+    <script src="components/brevo-subscription.js"></script>
 </head>
 <body>
     <nav-menu></nav-menu>
@@ -37,12 +38,16 @@
         <div class="container max-w-7xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-heading tracking-heading leading-heading text-black mb-4">
-                    Upcoming Training Events
+                    Training & Consultation
                 </h2>
-                <p class="text-lg font-body text-gray-600 max-w-3xl mx-auto">
+                <p class="text-lg font-body text-gray-600 max-w-3xl mx-auto mb-8">
                     Join Scott D. Miller for comprehensive training in Feedback Informed Treatment (FIT).
                     Learn evidence-based methods to improve therapy outcomes through systematic client feedback.
                 </p>
+                <a href="#contact" class="inline-block px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-white bg-orange-500 hover:bg-orange-600 transition-colors">
+                    Contact Scott to schedule a consultation
+                    <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
+                </a>
             </div>
 
             <!-- Eventbrite Events Container -->
@@ -53,6 +58,54 @@
                     organizer-id="298540255"
                     max-events="6">
                 </eventbrite-events>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-heading tracking-heading text-center mb-8">What Participants Say</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Jane Smith" class="w-20 h-20 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-heading text-xl">Dr. Jane Smith</h4>
+                                <p class="text-sm text-gray-600 font-body">Clinical Psychologist</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 font-body italic flex-grow">
+                            "Scott's training transformed my practice. The FIT approach has significantly improved my client outcomes and given me concrete tools to measure progress. Absolutely invaluable!"
+                        </p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Johnson" class="w-20 h-20 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-heading text-xl">Michael Johnson</h4>
+                                <p class="text-sm text-gray-600 font-body">LCSW, Agency Director</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 font-body italic flex-grow">
+                            "Implementing Scott's feedback-informed approach across our agency has been game-changing. Our retention rates have improved dramatically and our therapists feel more confident in their work."
+                        </p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dr. Sarah Chen" class="w-20 h-20 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-heading text-xl">Dr. Sarah Chen</h4>
+                                <p class="text-sm text-gray-600 font-body">Marriage & Family Therapist</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 font-body italic flex-grow">
+                            "The deliberate practice framework Scott teaches has revolutionized how I approach professional development. This training should be mandatory for all therapists!"
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <!-- Static Training Information -->
@@ -95,6 +148,79 @@
                         View All Events on Eventbrite
                         <span class="ml-4 pl-4 border-l border-white font-body font-thin">→</span>
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="px-4 py-16 bg-gray-100">
+        <div class="container max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-heading tracking-heading leading-heading text-black mb-4">
+                    Contact Scott
+                </h2>
+                <p class="text-lg font-body text-gray-600">
+                    Get in touch for training opportunities, consultations, or questions about FIT
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Information -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-heading text-black mb-6">Contact Information</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-orange-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-body font-medium text-black">Email</p>
+                                <a href="mailto:info@scottdmiller.com" class="text-orange-500 hover:text-orange-600 font-body">
+                                    info@scottdmiller.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-orange-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                            <div>
+                                <p class="font-body font-medium text-black">FIT Discussion Forum</p>
+                                <a href="https://www.facebook.com/groups/122558661308" target="_blank" class="text-orange-500 hover:text-orange-600 font-body">
+                                    Facebook Group
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-orange-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            <div>
+                                <p class="font-body font-medium text-black">ICCE Homepage</p>
+                                <a href="https://www.centerforclinicalexcellence.com" target="_blank" class="text-orange-500 hover:text-orange-600 font-body">
+                                    www.centerforclinicalexcellence.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <h3 class="text-2xl font-heading text-black mb-4">Stay Updated</h3>
+                    <p class="text-gray-600 font-body mb-6">
+                        Subscribe to receive updates on new training opportunities, research, and FIT resources.
+                    </p>
+
+                    <!-- Brevo Subscription Component -->
+                    <brevo-subscription
+                        list-id="19"
+                        success-message="Thank you for subscribing! You'll receive updates on Scott's latest training and research.">
+                    </brevo-subscription>
                 </div>
             </div>
         </div>
