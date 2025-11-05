@@ -63,7 +63,7 @@ class NavMenu extends HTMLElement {
         const items = [
             { href: 'training.html', text: 'Training', external: false },
             { href: 'downloadmeasures.html', text: 'Download Measures', external: false },
-            { href: 'index.html#publications', text: 'Publications', external: false },
+            { href: 'publications.html', text: 'Publications', external: false },
             { href: 'index.html#contact', text: 'Contact', external: false }
         ];
 
@@ -78,7 +78,7 @@ class NavMenu extends HTMLElement {
         const items = [
             { href: 'training.html', text: 'Training', external: false },
             { href: 'downloadmeasures.html', text: 'Download Measures', external: false },
-            { href: 'index.html#publications', text: 'Publications', external: false },
+            { href: 'publications.html', text: 'Publications', external: false },
             { href: 'index.html#contact', text: 'Contact', external: false }
         ];
 
