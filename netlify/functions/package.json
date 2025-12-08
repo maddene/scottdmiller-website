@@ -1,0 +1,7 @@
+{
+  "name": "scottdmiller-functions",
+  "version": "1.0.0",
+  "description": "Netlify serverless functions for Scott D. Miller website",
+  "private": true,
+  "type": "commonjs"
+}
