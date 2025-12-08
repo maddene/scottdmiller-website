@@ -27,6 +27,8 @@
         }
     </script>
     <script src="components/nav-menu.js"></script>
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <nav-menu></nav-menu>
@@ -162,48 +164,6 @@
 
             <form id="downloadForm" class="space-y-4">
                 <div>
-                    <label for="fullName" class="block text-sm font-body font-medium text-gray-700 mb-1">
-                        Full Name <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="fullName"
-                        name="fullName"
-                        required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent font-body"
-                        placeholder="Enter your full name"
-                    />
-                </div>
-
-                <div>
-                    <label for="email" class="block text-sm font-body font-medium text-gray-700 mb-1">
-                        Email Address <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent font-body"
-                        placeholder="Enter your email"
-                    />
-                </div>
-
-                <div>
-                    <label for="organisation" class="block text-sm font-body font-medium text-gray-700 mb-1">
-                        Organisation <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="organisation"
-                        name="organisation"
-                        required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent font-body"
-                        placeholder="Enter your organisation"
-                    />
-                </div>
-
-                <div>
                     <label for="licenseType" class="block text-sm font-body font-medium text-gray-700 mb-1">
                         Number of Providers <span class="text-red-500">*</span>
                     </label>
@@ -223,6 +183,63 @@
                     </select>
                 </div>
 
+                <div id="userDetailsFields">
+                    <div>
+                        <label for="fullName" class="block text-sm font-body font-medium text-gray-700 mb-1">
+                            Full Name <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent font-body"
+                            placeholder="Enter your full name"
+                        />
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="email" class="block text-sm font-body font-medium text-gray-700 mb-1">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent font-body"
+                            placeholder="Enter your email"
+                        />
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="organisation" class="block text-sm font-body font-medium text-gray-700 mb-1">
+                            Organisation <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="organisation"
+                            name="organisation"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent font-body"
+                            placeholder="Enter your organisation"
+                        />
+                    </div>
+
+                    <div class="mt-4 flex items-start">
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            required
+                            class="mt-1 h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
+                        />
+                        <label for="terms" class="ml-2 text-sm font-body text-gray-700">
+                            I agree to the <a href="pcomsmeasuresterms.html" target="_blank" class="text-orange-500 hover:text-orange-600 underline">Terms and Conditions</a> <span class="text-red-500">*</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div id="priceDisplay" class="bg-orange-50 border-l-4 border-orange-500 p-4">
                     <p class="text-sm font-body text-gray-700">License Fee:</p>
                     <p class="text-2xl font-heading text-orange-600">$0</p>
@@ -240,26 +257,14 @@
                     </p>
                 </div>
 
-                <div class="flex items-start">
-                    <input
-                        type="checkbox"
-                        id="terms"
-                        name="terms"
-                        required
-                        class="mt-1 h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                    />
-                    <label for="terms" class="ml-2 text-sm font-body text-gray-700">
-                        I agree to the <a href="http://www.scottdmiller.com/group-licensing-agreement/" target="_blank" class="text-orange-500 hover:text-orange-600 underline">Terms and Conditions</a> <span class="text-red-500">*</span>
-                    </label>
-                </div>
-
                 <div id="formError" class="hidden text-red-600 text-sm font-body"></div>
 
                 <button
-                    type="submit"
+                    type="button"
+                    id="continueButton"
                     class="w-full px-6 py-3 font-heading text-lg tracking-wider rounded-sm text-white bg-orange-500 hover:bg-orange-600 transition-colors"
                 >
-                    Submit & Download
+                    Continue
                 </button>
             </form>
         </div>
@@ -298,6 +303,9 @@
     </footer>
 
     <script>
+        // Initialize Stripe - Live Mode
+        const stripe = Stripe('pk_live_51Pv3OpKKHegB22ovZy3SlxksjvfCEV50CFY0PerKX7KHnQgra7PyC5t4SNuoe5mrZioWWBG590fRorTPltQBiIRi00xdRPuTL6');
+
         // Modal functionality
         const modal = document.getElementById('downloadModal');
         const openModalBtn = document.getElementById('openModal');
@@ -307,16 +315,18 @@
         const licenseTypeSelect = document.getElementById('licenseType');
         const priceDisplay = document.getElementById('priceDisplay');
         const contactInfo = document.getElementById('contactInfo');
+        const continueButton = document.getElementById('continueButton');
+        const userDetailsFields = document.getElementById('userDetailsFields');
 
-        // Price mapping
+        // Price mapping with Stripe Payment Links
         const prices = {
-            '1-provider-0': { amount: 0, display: '$0' },
-            '10-providers-100': { amount: 100, display: '$100' },
-            '25-providers-200': { amount: 200, display: '$200' },
-            '50-providers-400': { amount: 400, display: '$400' },
-            '100-providers-1000': { amount: 1000, display: '$1,000' },
-            '250-providers-1996': { amount: 1996, display: '$1,996' },
-            '250plus-providers-contact': { amount: null, display: 'Contact for Quote' }
+            '1-provider-0': { amount: 0, display: '$0', paymentLink: 'https://buy.stripe.com/00w28sdfedNC6MkelE3F605' },
+            '10-providers-100': { amount: 10000, display: '$100', paymentLink: 'https://buy.stripe.com/28E9AUfnm7pe5Ig6Tc3F600' },
+            '25-providers-200': { amount: 20000, display: '$200', paymentLink: 'https://buy.stripe.com/dRm6oIgrqcJy4Ec2CW3F601' },
+            '50-providers-400': { amount: 40000, display: '$400', paymentLink: 'https://buy.stripe.com/aFaaEY3EE9xm9Yw91k3F602' },
+            '100-providers-1000': { amount: 100000, display: '$1,000', paymentLink: 'https://buy.stripe.com/14A7sM3EEdNC0nWfpI3F603' },
+            '250-providers-1996': { amount: 199600, display: '$2,000', paymentLink: 'https://buy.stripe.com/aFa28sa326la3A8b9s3F604' },
+            '250plus-providers-contact': { amount: null, display: 'Contact for Quote', paymentLink: null }
         };
 
         // Update price display when license type changes
@@ -327,11 +337,29 @@
             if (priceInfo) {
                 priceDisplay.querySelector('.text-2xl').textContent = priceInfo.display;
 
-                // Show/hide contact info based on selection
+                // Show/hide fields based on selection
                 if (selectedValue === '250plus-providers-contact') {
+                    // Hide user details, show contact info, hide button
+                    userDetailsFields.classList.add('hidden');
                     contactInfo.classList.remove('hidden');
+                    continueButton.classList.add('hidden');
+
+                    // Remove required attribute from hidden fields
+                    document.getElementById('fullName').removeAttribute('required');
+                    document.getElementById('email').removeAttribute('required');
+                    document.getElementById('organisation').removeAttribute('required');
+                    document.getElementById('terms').removeAttribute('required');
                 } else {
+                    // Show user details, hide contact info, show button
+                    userDetailsFields.classList.remove('hidden');
                     contactInfo.classList.add('hidden');
+                    continueButton.classList.remove('hidden');
+
+                    // Add back required attribute
+                    document.getElementById('fullName').setAttribute('required', '');
+                    document.getElementById('email').setAttribute('required', '');
+                    document.getElementById('organisation').setAttribute('required', '');
+                    document.getElementById('terms').setAttribute('required', '');
                 }
             }
         });
@@ -364,53 +392,63 @@
             }
         });
 
-        // Form submission
-        downloadForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Handle continue button click
+        continueButton.addEventListener('click', () => {
             formError.classList.add('hidden');
 
             const licenseValue = document.getElementById('licenseType').value;
             const priceInfo = prices[licenseValue];
 
-            const formData = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                organisation: document.getElementById('organisation').value,
-                licenseType: licenseValue,
-                price: priceInfo.amount,
-                terms: document.getElementById('terms').checked
-            };
+            // Validate form
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const organisation = document.getElementById('organisation').value;
+            const termsAccepted = document.getElementById('terms').checked;
 
-            // Validate
-            if (!formData.fullName || !formData.email || !formData.organisation) {
+            if (!fullName || !email || !organisation) {
                 formError.textContent = 'Please fill in all required fields.';
                 formError.classList.remove('hidden');
                 return;
             }
 
-            if (!formData.terms) {
+            if (!termsAccepted) {
                 formError.textContent = 'Please agree to the Terms and Conditions.';
                 formError.classList.remove('hidden');
                 return;
             }
 
-            // TODO: Send form data to your backend/API
-            console.log('Form submitted:', formData);
+            // Store form data in sessionStorage to retrieve after payment
+            sessionStorage.setItem('licenseFormData', JSON.stringify({
+                fullName,
+                email,
+                organisation,
+                licenseType: licenseValue
+            }));
 
-            // For now, just show success and trigger download
-            // In production, you would send this to your backend first
-            alert('Thank you! Your download will begin shortly.');
+            // Redirect to Stripe payment page for all tiers (including free)
+            if (priceInfo.paymentLink) {
+                window.location.href = priceInfo.paymentLink + `?prefilled_email=${encodeURIComponent(email)}`;
+            } else {
+                formError.textContent = 'Payment link not configured. Please contact support.';
+                formError.classList.remove('hidden');
+            }
+        });
 
-            // Close modal
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            downloadForm.reset();
-            contactInfo.classList.add('hidden');
-            // Reset price display
-            priceDisplay.querySelector('.text-2xl').textContent = '$0';
+        // Check if returning from successful payment
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment') === 'success') {
+                alert('Payment successful! Your download will begin shortly. Check your email for the license agreement and receipt.');
 
-            // TODO: Trigger actual file download here
-            // window.location.href = 'path-to-your-measures.pdf';
+                // TODO: Trigger file download
+                // window.location.href = 'assets/measures/ors-srs-measures.pdf';
+
+                // Clear form data from storage
+                sessionStorage.removeItem('licenseFormData');
+
+                // Clean up URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
         });
     </script>
 
