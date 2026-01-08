@@ -251,11 +251,15 @@
 
             <div class="border-t border-gray-800 pt-6">
                 <p class="text-gray-400 font-body text-sm">
-                    © 2025 Scott D. Miller, PhD. All rights reserved.
+                    © <span id="currentYear"></span> Scott D. Miller, PhD. All rights reserved.
                 </p>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Update copyright year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
