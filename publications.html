@@ -577,7 +577,8 @@
 
             articles.forEach(article => {
                 const title = article.querySelector('h3').textContent.toLowerCase();
-                const description = article.querySelector('p').textContent.toLowerCase();
+                const descriptionElement = article.querySelector('p');
+                const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
 
                 if (title.includes(searchTerm) || description.includes(searchTerm)) {
                     article.style.display = 'block';
