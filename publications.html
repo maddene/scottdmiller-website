@@ -583,27 +583,25 @@
                 console.log('Searching for:', searchTerm);
 
                 articles.forEach(article => {
-                    const title = article.querySelector('h3').textContent.toLowerCase();
+                    const title = article.querySelector('h3') ? article.querySelector('h3').textContent.toLowerCase() : '';
                     const descriptionElement = article.querySelector('p');
                     const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
 
                     const matches = title.includes(searchTerm) || description.includes(searchTerm);
 
                     if (searchTerm === '' || matches) {
-                        article.style.display = 'block';
+                        article.classList.remove('hidden');
                         hasResults = true;
                     } else {
-                        article.style.display = 'none';
+                        article.classList.add('hidden');
                     }
                 });
 
                 // Show/hide no results message
                 if (!hasResults && searchTerm !== '') {
                     noResultsMessage.classList.remove('hidden');
-                    articlesList.style.display = 'none';
                 } else {
                     noResultsMessage.classList.add('hidden');
-                    articlesList.style.display = 'block';
                 }
             });
         });
