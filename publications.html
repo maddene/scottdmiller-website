@@ -566,34 +566,46 @@
 
     <!-- Search Functionality Script -->
     <script>
-        // Article search functionality
-        const searchInput = document.getElementById('articleSearch');
-        const articles = document.querySelectorAll('.article-item');
-        const noResultsMessage = document.getElementById('noArticlesMessage');
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Article search functionality
+            const searchInput = document.getElementById('articleSearch');
+            const articlesList = document.getElementById('articlesList');
+            const articles = articlesList.querySelectorAll('.article-item');
+            const noResultsMessage = document.getElementById('noArticlesMessage');
 
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            let hasResults = false;
+            console.log('Search initialized. Found', articles.length, 'articles');
 
-            articles.forEach(article => {
-                const title = article.querySelector('h3').textContent.toLowerCase();
-                const descriptionElement = article.querySelector('p');
-                const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                let hasResults = false;
 
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    article.style.display = 'block';
-                    hasResults = true;
+                console.log('Searching for:', searchTerm);
+
+                articles.forEach(article => {
+                    const title = article.querySelector('h3').textContent.toLowerCase();
+                    const descriptionElement = article.querySelector('p');
+                    const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
+
+                    const matches = title.includes(searchTerm) || description.includes(searchTerm);
+
+                    if (searchTerm === '' || matches) {
+                        article.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+
+                // Show/hide no results message
+                if (!hasResults && searchTerm !== '') {
+                    noResultsMessage.classList.remove('hidden');
+                    articlesList.style.display = 'none';
                 } else {
-                    article.style.display = 'none';
+                    noResultsMessage.classList.add('hidden');
+                    articlesList.style.display = 'block';
                 }
             });
-
-            // Show/hide no results message
-            if (!hasResults && searchTerm !== '') {
-                noResultsMessage.classList.remove('hidden');
-            } else {
-                noResultsMessage.classList.add('hidden');
-            }
         });
     </script>
 </body>
