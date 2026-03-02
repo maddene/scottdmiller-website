@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventbrite Widget Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Bebas Neue', 'sans-serif'],
+                        'body': ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-heading mb-8">Eventbrite Widget Test</h1>
+        
+        <!-- Test 1: Widget with mock data (will use fallback) -->
+        <div class="mb-8">
+            <h2 class="text-xl font-heading mb-4">Test 1: Widget (will show mock data or fallback)</h2>
+            <eventbrite-events
+                organizer-id="298540255"
+                max-events="6">
+            </eventbrite-events>
+        </div>
+
+        <!-- Manual API Test -->
+        <div class="mt-8">
+            <h2 class="text-xl font-heading mb-4">Test 2: Direct API Call (for debugging)</h2>
+            <button onclick="testEventbriteAPI()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Test Eventbrite API
+            </button>
+            <div id="api-result" class="mt-4 p-4 bg-white rounded shadow"></div>
+        </div>
+    </div>
+
+    <script src="components/eventbrite-events.js"></script>
+    <script>
+        async function testEventbriteAPI() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '<p class="text-gray-600">Testing API...</p>';
+            
+            try {
+                // Test the Netlify function endpoint
+                const response = await fetch('/.netlify/functions/eventbrite?organizerId=298540255');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p class="text-green-600 font-bold">Success!</p>
+                        <p>Found ${data.events?.length || 0} events</p>
+                        <pre class="mt-2 text-xs overflow-auto">${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="text-red-600 font-bold">Error ${response.status}</p>
+                        <p>${data.error}</p>
+                        ${data.hint ? `<p class="text-sm text-gray-600 mt-2">Hint: ${data.hint}</p>` : ''}
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="text-red-600 font-bold">Connection Error</p>
+                    <p>${error.message}</p>
+                    <p class="text-sm text-gray-600 mt-2">This is expected if testing locally. The Netlify function needs to be deployed.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
